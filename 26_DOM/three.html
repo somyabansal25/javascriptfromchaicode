@@ -1,0 +1,74 @@
+<!-- //CREATING NEW ELEMENT -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>DOM | Chai aur code</title>
+</head>
+<body style="background-color: #212121; color: #fff ;">
+    
+</body >
+<script>
+    const div=document.createElement("div");
+    console.log(div);
+    div.className="main";
+    div.id=Math.round(Math.random()*10+1)
+    div.setAttribute("title","generated title")
+    div.style.backgroundColor="green";
+    div.style.padding="12px";
+   // div.innerText="chai aur code";
+   const addText=document.createTextNode("Chai aur code");
+   div.appendChild(addText);
+
+   document.body.appendChild(div);
+</script>
+</html>
+
+
+<!-- --------------------------------------------------NOTES----------------------------------------------------- -->
+<!-- 1. Create a new element
+const div = document.createElement("div");
+document.createElement("tagName") → creates an element but doesn’t put it in the page yet.
+Right now, it only exists in memory.
+
+2. Set class and id
+div.className = "main";
+div.id = Math.round(Math.random() * 10 + 1);
+className → assigns a class.
+id is randomly generated here.
+
+3. Set attributes
+div.setAttribute("title", "generated title");
+setAttribute(name, value) → used to set any attribute (like title, src, alt, etc.).
+Here title will show as a tooltip when you hover.
+
+4. Apply inline styles
+div.style.backgroundColor = "green";
+div.style.padding = "12px";
+Directly sets CSS properties through style.
+Note: CSS properties with hyphens (like background-color) become camelCase (backgroundColor).
+
+5. Add text inside
+Two ways possible:
+
+Way 1: innerText
+div.innerText = "Chai aur code";
+Inserts text directly.
+
+Way 2: createTextNode (used here)
+const addText = document.createTextNode("Chai aur code");
+div.appendChild(addText);
+Safer when handling raw text (avoids HTML parsing).
+
+6. Attach element to DOM
+document.body.appendChild(div);
+appendChild() actually places the new div inside <body>.
+Now it becomes visible on the page.
+
+
+✅ Final Flow of Creation
+Make → createElement
+Customize → className, id, setAttribute, style
+Add content → innerText / createTextNode
+Insert → appendChild into some existing element (body, div, etc.) -->

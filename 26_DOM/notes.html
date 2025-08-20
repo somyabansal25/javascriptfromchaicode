@@ -1,0 +1,147 @@
+ <!-- 1. DOM Selectors
+Selectors are methods in JavaScript used to grab elements from the DOM.
+🔹 Single Element Selectors
+document.getElementById("id")
+Selects element by ID.
+Returns a single element (or null if not found).
+Example:
+-----------------------------------------------|
+let heading = document.getElementById("title");|
+-----------------------------------------------|
+
+document.querySelector("selector")
+Selects first matching element using CSS selector.
+Example:
+----------------------------------------------------|
+let firstParagraph = document.querySelector("p");   |
+let firstClass = document.querySelector(".myClass");|
+let firstId = document.querySelector("#title");     |
+----------------------------------------------------|
+🔹 Multiple Element Selectors
+
+document.getElementsByClassName("className")
+Selects elements by class.
+Returns a live HTMLCollection.
+Example:
+----------------------------------------------------------|
+let items = document.getElementsByClassName("list-item"); |
+----------------------------------------------------------|
+
+document.getElementsByTagName("tagName")
+Selects all elements with a given tag.
+Returns a live HTMLCollection.
+Example:
+-----------------------------------------------------|
+let paragraphs = document.getElementsByTagName("p"); |
+-----------------------------------------------------|
+
+document.querySelectorAll("selector")
+Selects all matching elements using CSS selector.
+Returns a static NodeList.
+Example:
+----------------------------------------------------|
+let allParagraphs = document.querySelectorAll("p"); |
+----------------------------------------------------|
+2. NodeList vs HTMLCollection
+Feature                  	NodeList	                                                  HTMLCollection
+Returned by	                querySelectorAll, childNodes	                             getElementsByClassName, getElementsByTagName
+Nature	                   Static (does not auto-update if DOM changes)	                 Live (auto-updates when DOM changes)
+Indexing                  	Array-like (access with index [])	                         Array-like (access with index [])
+Looping                     	Can use for, for...of, forEach()               	         Can use for, for...of, but no forEach() directly
+Content	                     Can contain any node type (elements, text, comments)	     Contains only element nodes
+Example               	document.querySelectorAll("p") → NodeList	                     document.getElementsByTagName("p") → HTMLCollection
+
+
+3. Conversion to Real Array
+Both NodeList and HTMLCollection are array-like but not true arrays. To use array methods (map, filter):
+let arr1 = Array.from(nodeList);
+let arr2 = [...htmlCollection];
+
+4. Practical Examples
+<div class="item">One</div>
+<div class="item">Two</div>
+<p>Paragraph</p>
+
+// Single
+document.getElementById("title");       // One element
+document.querySelector(".item");        // First .item
+
+// Multiple
+document.getElementsByClassName("item"); // HTMLCollection
+document.querySelectorAll(".item");      // NodeList
+
+
+✅ Key Takeaways
+Use querySelector / querySelectorAll for modern CSS-style selection.
+getElement* methods are older but still used, return live HTMLCollections.
+NodeList supports forEach(), HTMLCollection doesn’t.
+Convert them to arrays when you need advanced array operations.
+ --> -->
+
+ <!-- innerHTml vs innerText vs textContent -->
+<!-- 1. innerHTML
+
+Returns/sets the HTML markup + text inside an element.
+
+If you assign to it, the browser parses the string as HTML. -->
+
+<div id="box"><b>Hello</b> World</div>
+<script>
+  console.log(box.innerHTML); 
+  // "<b>Hello</b> World"
+  
+  box.innerHTML = "<i>Changed</i>";
+  // renders as italic text
+</script>
+
+
+<!-- 👉 Use when you want to insert HTML elements inside.
+⚠️ Be careful: setting innerHTML can expose you to XSS (security risks) if using user input.
+
+2. innerText
+
+Returns/sets the visible text inside an element (what the user actually sees).
+
+Ignores hidden elements (like with display:none).
+
+Forces a reflow (slower than textContent). -->
+
+<div id="box"><b style="display:none">Hi</b> Hello</div>
+<script>
+  console.log(box.innerText); 
+  // "Hello" (ignores hidden "Hi")
+  
+  box.innerText = "Changed Text";
+</script>
+
+
+<!-- 👉 Use when you care about visible text as rendered.
+
+3. textContent
+
+Returns/sets the text inside an element, including hidden elements.
+
+Does not parse HTML (just gives raw text). -->
+
+<div id="box"><b style="display:none">Hi</b> Hello</div>
+<script>
+  console.log(box.textContent); 
+  // "Hi Hello" (includes hidden)
+  
+  box.textContent = "<i>Changed</i>";
+  // displays literally: <i>Changed</i>
+</script>
+
+
+<!-- 👉 Use when you just need the raw text without caring about visibility or HTML.
+
+🔑 Quick Comparison
+Property	     Returns	                           Handles HTML?	                 Includes hidden text?                	Performance
+innerHTML	     HTML + text	                      ✅ Parses HTML                  	✅ Includes hidden	                 Slower (parsing HTML)
+innerText	     Visible text only	                  ❌ No HTML	                       ❌ Ignores hidden                     	Slowest (layout + reflow)
+textContent	     Raw text	                          ❌ No HTML                     	✅ Includes hidden	                     Fastest
+
+✨ Rule of thumb
+Need to inject HTML → innerHTML
+Need the visible text as on screen → innerText
+Need raw text quickly → textContent -->
