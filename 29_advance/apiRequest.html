@@ -1,0 +1,52 @@
+//Today fetch API is used to make API requests but before that XMLHttpRequest was used to make API requests.
+//XMLHttpRequest is an inbuilt browser API that is used to make HTTP requests in the background without reloading the page.
+//It is used to exchange data with a server and update parts of a web page without reloading the entire page.
+//It is an object that provides methods and properties to interact with servers.
+
+<!-- 🔹 XMLHttpRequest (XHR) — More Details
+What it is
+An inbuilt browser object to make HTTP requests.
+Lets JS send and receive data from a server asynchronously (in the background).
+Made AJAX (Asynchronous JavaScript and XML) possible → which is why modern web apps don’t reload pages every time.
+
+Why it was important
+Before XHR, you had to reload the entire page to get new data.
+With XHR, only a part of the page could update → smoother experience (e.g., Gmail, Facebook feeds).
+Although called XMLHttpRequest, it can handle JSON, XML, plain text, HTML — not limited to XML. -->
+
+<!-- //XMPHttpRequest.readyState
+//states of request -->
+<!-- Value                 	State name	                       Meaning
+0	                    UNSENT	                         Request created but not opened yet. (new XMLHttpRequest())
+1	                    OPENED                             open() has been called (method + URL set), but request not sent yet
+2	                  HEADERS_RECEIVED                    send() has been called, and headers + status are available
+3	                  LOADING	                         Response body is being downloaded (partial data available)
+4	                    DONE	                         Request completed, response fully received -->
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body style="background-color: #212121;">
+</body>
+<script>
+    const requesturl="https://api.github.com/users/hiteshchoudhary7"//API endpoint URL
+    const xhr=new XMLHttpRequest()//creates a new XMLHttpRequest object
+    xhr.open('GET',requesturl)//initializes a request. Here we are making a GET request to the given URL
+    // xhr.open('POST',requesturl)//initializes a request. Here we are making a POST request to the given URL
+    xhr.onreadystatechange=function(){//whenever the readyState changes this function will be called
+        console.log(xhr.readyState);
+        if(xhr.readyState===4){
+            const data=JSON.parse(this.responseText)//responseText contains the response from the server as a string. We are parsing it to a JavaScript object using JSON.parse()
+            //if the response is in JSON format we can directly use this.response which will give us a JavaScript object
+            console.log(typeof data);//object
+            console.log(data.followers);//responseText contains the response from the server as a (string)
+        } 
+    }
+    xhr.send()//sends the request to the server
+
+</script>
+</html>

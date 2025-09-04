@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <h1>Chai aur code</h1>
+    <button id="stop">Stop</button>
+</body>
+<script>
+//setTimeout and setInterval
+//setTimeout is used to call a function after a certain time interval. it calls the function only once after the specified time
+//setInterval is used to call a function repeatedly after a certain time interval
+//syntax: setTimeout(function, time in milliseconds)
+//syntax: setInterval(function, time in milliseconds)
+    const saySomya=function(){//function expression
+        console.log("Somya is great");   
+    }
+    const changeText=function(){
+            document.querySelector("h1").innerHTML="Chai aur code with Somya";
+
+    }
+    const changeMe=setTimeout(changeText,2000);
+    //setTimeout(saySomya,2000);//referring function not calling it
+
+//clearTimeout
+//syntax in short: clearTimeout(timeoutID)
+//stop the timeout using clearTimeout
+document.querySelector("#stop").addEventListener("click",function(){
+    clearTimeout(changeMe);
+    console.log("STOPPED");  
+},false)
+
+</script>
+</html>
